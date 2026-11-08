@@ -1,0 +1,191 @@
+{
+  "info": {
+    "_postman_id": "a9b8c7d6-e5f4-4321-b012-3456789abcde",
+    "name": "Herbapedia Marketplace REST API — Soal 12",
+    "description": "Koleksi Pengujian RESTful Web Service Marketplace Herbapedia (PT Herbal Sejati Indonesia)\nTeknologi: PHP Native, MySQLi Prepared Statements, JSON, Apache (Laragon/XAMPP).\nMemenuhi seluruh ketentuan pengujian Soal 12 Poin g & h.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost/MARKETPLACE/WEB%20SERVICE%20MARKETPLACE",
+      "type": "string",
+      "description": "URL dasar aplikasi web service lokal. Jika diletakkan di root www, ganti menjadi http://localhost/WEB%20SERVICE%20MARKETPLACE"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Service Discovery & Root API",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/index.php",
+          "host": ["{{base_url}}"],
+          "path": ["api", "index.php"]
+        },
+        "description": "Menampilkan direktori layanan dan informasi endpoint resmi API Herbapedia."
+      }
+    },
+    {
+      "name": "02. GET Seluruh Katalog Produk (200 OK)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/produk.php",
+          "host": ["{{base_url}}"],
+          "path": ["api", "produk.php"]
+        },
+        "description": "Menampilkan seluruh sediaan herbal aktif dari database MySQLi."
+      }
+    },
+    {
+      "name": "03. GET Filter Produk Berdasarkan Kategori (?kategori=1)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/produk.php?kategori=1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "produk.php"],
+          "query": [
+            { "key": "kategori", "value": "1", "description": "ID Kategori Kapsul Ekstrak" }
+          ]
+        },
+        "description": "Menguji pemfilteran produk berdasarkan ID kategori herbal."
+      }
+    },
+    {
+      "name": "04. GET Pencarian Produk Kata Kunci (?search=temulawak)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/produk.php?search=temulawak",
+          "host": ["{{base_url}}"],
+          "path": ["api", "produk.php"],
+          "query": [
+            { "key": "search", "value": "temulawak", "description": "Kata kunci pencarian" }
+          ]
+        },
+        "description": "Menguji pencarian LIKE pada kolom nama_produk dan deskripsi khasiat."
+      }
+    },
+    {
+      "name": "05. GET Detail Produk Spesifik Berdasarkan ID (?id=1 - 200 OK)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/produk.php?id=1",
+          "host": ["{{base_url}}"],
+          "path": ["api", "produk.php"],
+          "query": [
+            { "key": "id", "value": "1", "description": "ID Produk Curcuma Forte" }
+          ]
+        },
+        "description": "Menampilkan detail lengkap 1 sediaan herbal, izin BPOM TR, aturan pakai, dan toko."
+      }
+    },
+    {
+      "name": "06. GET Uji Error Data Tidak Ditemukan (?id=9999 - 404 Not Found)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/produk.php?id=9999",
+          "host": ["{{base_url}}"],
+          "path": ["api", "produk.php"],
+          "query": [
+            { "key": "id", "value": "9999", "description": "ID yang tidak ada di DB" }
+          ]
+        },
+        "description": "Membuktikan penanganan error 404 Not Found saat produk tidak ditemukan di database."
+      }
+    },
+    {
+      "name": "07. GET Seluruh Kategori Sediaan (/api/kategori.php - 200 OK)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/kategori.php",
+          "host": ["{{base_url}}"],
+          "path": ["api", "kategori.php"]
+        },
+        "description": "Mengambil seluruh kategori beserta jumlah produk terdaftar."
+      }
+    },
+    {
+      "name": "08. POST Buat Pesanan Baru Valid (/api/pesanan.php - 201 Created)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_pengguna\": 2,\n  \"nama_pembeli\": \"Apoteker Dian Pramita, S.Farm\",\n  \"telepon_pembeli\": \"081288997766\",\n  \"alamat_pengiriman\": \"Apotek Sehat Medika Farma, Jl. Margonda Raya No. 102, Beji, Kota Depok, Jawa Barat 16424\",\n  \"catatan\": \"Pesanan restock fitofarmaka klinik via integrasi REST API mobile. Mohon sertakan batch certificate.\",\n  \"metode_pembayaran\": \"Transfer Bank (BCA Virtual Account)\",\n  \"items\": [\n    {\n      \"id_produk\": 1,\n      \"jumlah\": 2\n    },\n    {\n      \"id_produk\": 4,\n      \"jumlah\": 1\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/pesanan.php",
+          "host": ["{{base_url}}"],
+          "path": ["api", "pesanan.php"]
+        },
+        "description": "Mengirimkan data transaksi pesanan baru via JSON, memotong stok sediaan secara atomik di database MySQL, dan menerbitkan kode faktur resmi."
+      }
+    },
+    {
+      "name": "09. POST Uji Validasi Pesanan Gagal (/api/pesanan.php - 400 Bad Request)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama_pembeli\": \"\",\n  \"telepon_pembeli\": \"\",\n  \"items\": []\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/pesanan.php",
+          "host": ["{{base_url}}"],
+          "path": ["api", "pesanan.php"]
+        },
+        "description": "Menguji penanganan respon 400 Bad Request jika field formulir atau items kosong."
+      }
+    },
+    {
+      "name": "10. Uji Method Not Allowed (Kirim POST ke /api/kategori.php - 405 Method Not Allowed)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Accept", "value": "application/json" }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/kategori.php",
+          "host": ["{{base_url}}"],
+          "path": ["api", "kategori.php"]
+        },
+        "description": "Membuktikan pembatasan metode HTTP: endpoint kategori hanya menerima GET, sehingga method POST akan ditolak dengan status 405."
+      }
+    }
+  ]
+}
+

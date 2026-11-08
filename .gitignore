@@ -1,0 +1,20 @@
+# Kredensial Database & File Rahasia
+config/env.php
+.env
+.env.local
+
+# File Editor & OS
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+.DS_Store
+Thumbs.db
+
+# Log & Arsip Pengujian
+*.log
+*.zip
+*.tar.gz
+
