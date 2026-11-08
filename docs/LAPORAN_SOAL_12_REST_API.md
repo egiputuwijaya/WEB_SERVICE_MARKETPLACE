@@ -359,3 +359,4 @@ Pengembangan Web Service / REST API Marketplace **Herbapedia (PT Herbal Sejati I
 2. Keempat endpoint inti (`GET produk`, `GET produk detail`, `GET kategori`, dan `POST pesanan`) berfungsi presisi menggunakan **PHP Native** dan **MySQLi Prepared Statements**.
 3. Mekanisme transaksi database ACID menjamin integritas data stok dan nomor faktur resmi saat pemesanan multi-item berlangsung.
 4. Seluruh berkas source code, koleksi pengujian Postman, dan skema basis data telah terdokumentasi dan siap dipublikasikan ke repositori GitHub publik.
+
