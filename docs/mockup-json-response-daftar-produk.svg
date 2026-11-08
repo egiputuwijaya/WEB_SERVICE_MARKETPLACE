@@ -1,0 +1,323 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1060 840" width="100%" height="100%">
+  <defs>
+    <style>
+      .canvas-bg { fill: #f8fafc; }
+      .window-bg { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; rx: 12px; }
+      .window-header { fill: #f1f5f9; stroke: #cbd5e1; stroke-width: 1; }
+      .tab-bar { fill: #ffffff; stroke: #e2e8f0; stroke-width: 1; }
+      .code-area { fill: #ffffff; stroke: #e2e8f0; stroke-width: 1; }
+      .line-num-bg { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 0.8; }
+      
+      /* Typography */
+      .font-title { font-family: 'Segoe UI', Arial, sans-serif; font-size: 16px; font-weight: bold; fill: #0f172a; }
+      .font-sub { font-family: 'Segoe UI', Arial, sans-serif; font-size: 10px; fill: #64748b; }
+      .font-url { font-family: 'Consolas', 'Courier New', monospace; font-size: 11px; fill: #1e293b; font-weight: bold; }
+      .font-line-num { font-family: 'Consolas', monospace; font-size: 9.5px; fill: #94a3b8; text-anchor: end; }
+      
+      /* JSON Code Highlighting */
+      .json-text { font-family: 'Consolas', 'Courier New', monospace; font-size: 10.5px; }
+      .j-brace { fill: #334155; font-weight: bold; }
+      .j-key { fill: #0369a1; font-weight: bold; }      /* Blue for Keys */
+      .j-str { fill: #15803d; }                         /* Green for Strings */
+      .j-num { fill: #b45309; font-weight: bold; }      /* Amber/Brown for Numbers */
+      .j-null { fill: #dc2626; font-weight: bold; }     /* Red for Null/Boolean */
+      .j-colon { fill: #64748b; }
+      
+      /* Right Explanation Panel */
+      .panel-card { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1; rx: 8px; }
+      .panel-header { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; font-weight: bold; fill: #0f172a; }
+      .panel-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; fill: #475569; line-height: 1.4; }
+      .panel-tag { font-family: 'Consolas', monospace; font-size: 8.5px; fill: #2563eb; }
+      
+      /* Badges */
+      .badge-get { fill: #eff6ff; stroke: #3b82f6; stroke-width: 1; rx: 4px; }
+      .badge-get-text { font-family: 'Consolas', monospace; font-size: 10px; font-weight: bold; fill: #1d4ed8; text-anchor: middle; }
+      .badge-status { fill: #ecfdf5; stroke: #10b981; stroke-width: 1; rx: 12px; }
+      .badge-status-text { font-family: 'Segoe UI', Arial, sans-serif; font-size: 9px; font-weight: bold; fill: #065f46; text-anchor: middle; }
+    </style>
+
+    <!-- Drop Shadow Filter -->
+    <filter id="shadow-window" x="-2%" y="-2%" width="104%" height="106%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#0f172a" flood-opacity="0.08" />
+    </filter>
+  </defs>
+
+  <!-- Canvas Outer Background -->
+  <rect x="2" y="2" width="1056" height="836" rx="14" class="canvas-bg" stroke="#1f2937" stroke-width="2.5" />
+
+  <!-- ========================================================================= -->
+  <!-- TOP HEADER & TITLE                                                        -->
+  <!-- ========================================================================= -->
+  <rect x="2" y="2" width="1056" height="66" rx="14" fill="#ffffff" stroke="#cbd5e1" stroke-width="1.2" />
+  <rect x="28" y="16" width="34" height="34" rx="8" fill="#1f2937" />
+  <text x="45" y="38" font-family="'Segoe UI', Arial, sans-serif" font-size="15px" fill="#ffffff" font-weight="bold" text-anchor="middle">{ }</text>
+  <text x="74" y="32" class="font-title">Rancangan Mockup Respon JSON: Daftar Seluruh Produk</text>
+  <text x="74" y="48" class="font-sub">Herbapedia — PT Herbal Sejati Indonesia  |  Respon Sukses GET /api/produk.php (Soal 12 Poin c &amp; h)</text>
+
+  <!-- Format Standard Badge -->
+  <rect x="870" y="20" width="160" height="26" rx="13" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1" />
+  <text x="950" y="36" font-family="'Segoe UI', Arial, sans-serif" font-size="9px" font-weight="bold" fill="#1d4ed8" text-anchor="middle">✓ Standar JSend RESTful</text>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN WINDOW FRAME (POSTMAN / API INSPECTOR STYLE)                         -->
+  <!-- ========================================================================= -->
+  <g transform="translate(28, 80)">
+    
+    <!-- Outer Window Card with Shadow -->
+    <rect x="0" y="0" width="1004" height="730" rx="12" class="window-bg" filter="url(#shadow-window)" />
+
+    <!-- 1. Window Top Bar (URL & Status Request) -->
+    <rect x="0" y="0" width="1004" height="48" rx="12" class="window-header" />
+    <rect x="0" y="24" width="1004" height="24" fill="#f1f5f9" />
+    
+    <!-- Window Traffic Light Dots (Mac Style) -->
+    <circle cx="20" cy="24" r="5" fill="#ef4444" />
+    <circle cx="36" cy="24" r="5" fill="#f59e0b" />
+    <circle cx="52" cy="24" r="5" fill="#10b981" />
+
+    <!-- HTTP Method Pill -->
+    <rect x="75" y="13" width="46" height="22" class="badge-get" />
+    <text x="98" y="28" class="badge-get-text">GET</text>
+
+    <!-- URL Input Box -->
+    <rect x="128" y="11" width="560" height="26" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="1" />
+    <text x="140" y="28" class="font-url">http://localhost/WEB SERVICE MARKETPLACE/api/produk.php</text>
+
+    <!-- Response Status Badges on Top Right -->
+    <rect x="702" y="13" width="88" height="22" class="badge-status" />
+    <text x="746" y="28" class="badge-status-text">✓ 200 OK</text>
+
+    <rect x="796" y="13" width="70" height="22" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+    <text x="831" y="27" font-family="'Consolas', monospace" font-size="9px" fill="#475569" text-anchor="middle">⏱ 18 ms</text>
+
+    <rect x="872" y="13" width="70" height="22" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+    <text x="907" y="27" font-family="'Consolas', monospace" font-size="9px" fill="#475569" text-anchor="middle">📦 1.4 KB</text>
+
+    <rect x="948" y="13" width="44" height="22" rx="4" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" />
+    <text x="970" y="27" font-family="'Consolas', monospace" font-size="9px" fill="#0369a1" font-weight="bold" text-anchor="middle">JSON</text>
+
+    <!-- 2. Sub-Header: Response Tabs -->
+    <rect x="0" y="48" width="1004" height="32" class="tab-bar" />
+    <text x="20" y="69" font-family="'Segoe UI', Arial, sans-serif" font-size="10.5px" font-weight="bold" fill="#2563eb">Response Body (Pretty)</text>
+    <line x1="16" y1="78" x2="135" y2="78" stroke="#2563eb" stroke-width="2.5" />
+
+    <text x="160" y="69" font-family="'Segoe UI', Arial, sans-serif" font-size="10.5px" fill="#64748b">Headers (7)</text>
+    <text x="250" y="69" font-family="'Segoe UI', Arial, sans-serif" font-size="10.5px" fill="#64748b">Cookies (0)</text>
+
+    <!-- Content Type indicator -->
+    <text x="984" y="68" font-family="'Consolas', monospace" font-size="9px" fill="#64748b" text-anchor="end">Content-Type: application/json; charset=UTF-8</text>
+
+    <!-- 3. CODE VIEWER AREA (LEFT) & EXPLANATION PANEL (RIGHT) -->
+    
+    <!-- Left: Line Numbers Column -->
+    <rect x="0" y="80" width="38" height="650" rx="0" class="line-num-bg" />
+    <line x1="38" y1="80" x2="38" y2="730" stroke="#e2e8f0" stroke-width="1" />
+
+    <!-- Line Numbers Text -->
+    <g class="font-line-num">
+      <text x="28" y="103">1</text>
+      <text x="28" y="123">2</text>
+      <text x="28" y="143">3</text>
+      <text x="28" y="163">4</text>
+      <text x="28" y="183">5</text>
+      <text x="28" y="203">6</text>
+      <text x="28" y="223">7</text>
+      <text x="28" y="243">8</text>
+      <text x="28" y="263">9</text>
+      <text x="28" y="283">10</text>
+      <text x="28" y="303">11</text>
+      <text x="28" y="323">12</text>
+      <text x="28" y="343">13</text>
+      <text x="28" y="363">14</text>
+      <text x="28" y="383">15</text>
+      <text x="28" y="403">16</text>
+      <text x="28" y="423">17</text>
+      <text x="28" y="443">18</text>
+      <text x="28" y="463">19</text>
+      <text x="28" y="483">20</text>
+      <text x="28" y="503">21</text>
+      <text x="28" y="523">22</text>
+      <text x="28" y="543">23</text>
+      <text x="28" y="563">24</text>
+      <text x="28" y="583">25</text>
+      <text x="28" y="603">26</text>
+      <text x="28" y="623">27</text>
+      <text x="28" y="643">28</text>
+      <text x="28" y="663">29</text>
+      <text x="28" y="683">30</text>
+      <text x="28" y="703">31</text>
+    </g>
+
+    <!-- Syntax Highlighted JSON Code Lines (Left Side) -->
+    <g class="json-text" transform="translate(48, 0)">
+      
+      <!-- Line 1: Root Open Brace -->
+      <text x="0" y="103" class="j-brace">{</text>
+      
+      <!-- Line 2: status -->
+      <text x="16" y="123"><tspan class="j-key">"status"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"success"</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 3: code -->
+      <text x="16" y="143"><tspan class="j-key">"code"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">200</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 4: message -->
+      <text x="16" y="163"><tspan class="j-key">"message"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"Data katalog produk berhasil diambil."</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 5: total_data -->
+      <text x="16" y="183"><tspan class="j-key">"total_data"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">8</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 6: filters open -->
+      <text x="16" y="203"><tspan class="j-key">"filters"</tspan><tspan class="j-colon">: </tspan><tspan class="j-brace">{</tspan></text>
+      
+      <!-- Line 7: filters items -->
+      <text x="32" y="223"><tspan class="j-key">"search"</tspan><tspan class="j-colon">: </tspan><tspan class="j-null">null</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"kategori"</tspan><tspan class="j-colon">: </tspan><tspan class="j-null">null</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"limit"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">50</tspan></text>
+      
+      <!-- Line 8: filters close -->
+      <text x="16" y="243" class="j-brace">},</text>
+      
+      <!-- Line 9: data array open -->
+      <text x="16" y="263"><tspan class="j-key">"data"</tspan><tspan class="j-colon">: </tspan><tspan class="j-brace">[</tspan></text>
+      
+      <!-- Line 10: item 1 open -->
+      <text x="32" y="283" class="j-brace">{</text>
+      
+      <!-- Line 11: item 1 id & nama -->
+      <text x="48" y="303"><tspan class="j-key">"id_produk"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">1</tspan><tspan class="j-brace">,</tspan></text>
+      <text x="48" y="323"><tspan class="j-key">"nama_produk"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"Curcuma Forte Ekstrak Temulawak 60 Kapsul"</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 13: harga & format -->
+      <text x="48" y="343"><tspan class="j-key">"harga"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">145000</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"harga_format"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"Rp 145.000"</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 14: stok & satuan -->
+      <text x="48" y="363"><tspan class="j-key">"stok"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">45</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"satuan"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"botol"</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"status"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"aktif"</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 15: nested kategori -->
+      <text x="48" y="383"><tspan class="j-key">"kategori"</tspan><tspan class="j-colon">: </tspan><tspan class="j-brace">{ </tspan><tspan class="j-key">"id_kategori"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">1</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"nama_kategori"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"Kapsul Ekstrak &amp; Fitofarmaka"</tspan><tspan class="j-brace"> },</tspan></text>
+      
+      <!-- Line 16: nested toko -->
+      <text x="48" y="403"><tspan class="j-key">"toko"</tspan><tspan class="j-colon">: </tspan><tspan class="j-brace">{ </tspan><tspan class="j-key">"id_toko"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">1</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"nama_toko"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"PT Herbal Sejati Official Store"</tspan><tspan class="j-brace"> }</tspan></text>
+      
+      <!-- Line 17: item 1 close -->
+      <text x="32" y="423"><tspan class="j-brace">},</tspan></text>
+      
+      <!-- Line 18: item 2 open -->
+      <text x="32" y="443" class="j-brace">{</text>
+      
+      <!-- Line 19: item 2 id & nama -->
+      <text x="48" y="463"><tspan class="j-key">"id_produk"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">4</tspan><tspan class="j-brace">,</tspan></text>
+      <text x="48" y="483"><tspan class="j-key">"nama_produk"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"Propolis Trigona Raw Nano Honey 250g (Halal)"</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 21: harga & format -->
+      <text x="48" y="503"><tspan class="j-key">"harga"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">185000</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"harga_format"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"Rp 185.000"</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 22: stok & satuan -->
+      <text x="48" y="523"><tspan class="j-key">"stok"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">35</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"satuan"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"botol"</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"status"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"aktif"</tspan><tspan class="j-brace">,</tspan></text>
+      
+      <!-- Line 23: nested kategori -->
+      <text x="48" y="543"><tspan class="j-key">"kategori"</tspan><tspan class="j-colon">: </tspan><tspan class="j-brace">{ </tspan><tspan class="j-key">"id_kategori"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">2</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"nama_kategori"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"Madu Murni &amp; Propolis Medis"</tspan><tspan class="j-brace"> },</tspan></text>
+      
+      <!-- Line 24: nested toko -->
+      <text x="48" y="563"><tspan class="j-key">"toko"</tspan><tspan class="j-colon">: </tspan><tspan class="j-brace">{ </tspan><tspan class="j-key">"id_toko"</tspan><tspan class="j-colon">: </tspan><tspan class="j-num">1</tspan><tspan class="j-brace">, </tspan><tspan class="j-key">"nama_toko"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"PT Herbal Sejati Official Store"</tspan><tspan class="j-brace"> }</tspan></text>
+      
+      <!-- Line 25: item 2 close -->
+      <text x="32" y="583"><tspan class="j-brace">},</tspan></text>
+      
+      <!-- Line 26: Ellipsis / next items indicator -->
+      <text x="32" y="603" fill="#94a3b8" font-style="italic">/* ... 6 produk sediaan herbal lainnya ... */</text>
+      
+      <!-- Line 27: data array close -->
+      <text x="16" y="623" class="j-brace">],</text>
+      
+      <!-- Line 28: timestamp -->
+      <text x="16" y="643"><tspan class="j-key">"timestamp"</tspan><tspan class="j-colon">: </tspan><tspan class="j-str">"2026-11-08T06:30:00+07:00"</tspan></text>
+      
+      <!-- Line 29: Root Close Brace -->
+      <text x="0" y="663" class="j-brace">}</text>
+
+    </g>
+
+    <!-- Vertical Separator between Code & Right Panel -->
+    <line x1="680" y1="80" x2="680" y2="730" stroke="#e2e8f0" stroke-width="1.2" />
+
+    <!-- ========================================================================= -->
+    <!-- RIGHT EXPLANATION PANEL (ANATOMI RESPON JSON)                             -->
+    <!-- ========================================================================= -->
+    <g transform="translate(695, 95)">
+      
+      <text x="0" y="12" font-family="'Segoe UI', Arial, sans-serif" font-size="12.5px" font-weight="bold" fill="#0f172a">
+        📌 Anatomi Respon JSON
+      </text>
+      <text x="0" y="27" font-family="'Segoe UI', Arial, sans-serif" font-size="9px" fill="#64748b">
+        Standar format industri JSend &amp; RESTful
+      </text>
+
+      <!-- Card 1: Envelope Status & Header -->
+      <g transform="translate(0, 42)">
+        <rect x="0" y="0" width="295" height="110" class="panel-card" />
+        <rect x="0" y="0" width="4" height="110" fill="#2563eb" rx="2" />
+        <text x="14" y="20" class="panel-header" fill="#1e40af">1. Metadata &amp; Status Envelope</text>
+        <text x="14" y="38" class="panel-text">&bull; <tspan class="panel-tag">status</tspan>: Nilai <tspan fill="#15803d" font-weight="bold">"success"</tspan> atau <tspan fill="#dc2626" font-weight="bold">"error"</tspan>.</text>
+        <text x="14" y="55" class="panel-text">&bull; <tspan class="panel-tag">code</tspan>: Cermin HTTP status code (<tspan font-weight="bold">200 OK</tspan>).</text>
+        <text x="14" y="72" class="panel-text">&bull; <tspan class="panel-tag">message</tspan>: Pesan informatif untuk developer.</text>
+        <text x="14" y="89" class="panel-text">&bull; <tspan class="panel-tag">total_data</tspan>: Jumlah baris sediaan yang dikembalikan.</text>
+        <text x="14" y="103" class="panel-text">&bull; <tspan class="panel-tag">filters</tspan>: Kondisi query pencarian aktif.</text>
+      </g>
+
+      <!-- Card 2: Data Payload & Relasi -->
+      <g transform="translate(0, 165)">
+        <rect x="0" y="0" width="295" height="125" class="panel-card" />
+        <rect x="0" y="0" width="4" height="125" fill="#059669" rx="2" />
+        <text x="14" y="20" class="panel-header" fill="#065f46">2. Data Payload Relasional</text>
+        <text x="14" y="38" class="panel-text">&bull; <tspan class="panel-tag">data</tspan>: Berupa Array of Objects sediaan herbal.</text>
+        <text x="14" y="55" class="panel-text">&bull; <tspan class="panel-tag">harga</tspan>: Tipe numerik murni untuk komputasi.</text>
+        <text x="14" y="72" class="panel-text">&bull; <tspan class="panel-tag">harga_format</tspan>: Format Rupiah siap tayang di UI.</text>
+        <text x="14" y="89" class="panel-text">&bull; <tspan class="panel-tag">kategori</tspan>: Objek relasi dari tabel <tspan class="panel-tag">kategori</tspan>.</text>
+        <text x="14" y="106" class="panel-text">&bull; <tspan class="panel-tag">toko</tspan>: Objek distributor dari tabel <tspan class="panel-tag">toko</tspan>.</text>
+        <text x="14" y="120" class="panel-text">&bull; <tspan class="panel-tag">stok</tspan>: Stok fisik gudang terstandar CPOTB.</text>
+      </g>
+
+      <!-- Card 3: Keamanan & Stempel Waktu -->
+      <g transform="translate(0, 303)">
+        <rect x="0" y="0" width="295" height="100" class="panel-card" />
+        <rect x="0" y="0" width="4" height="100" fill="#d97706" rx="2" />
+        <text x="14" y="20" class="panel-header" fill="#92400e">3. Standarisasi Waktu &amp; Audit</text>
+        <text x="14" y="38" class="panel-text">&bull; <tspan class="panel-tag">timestamp</tspan>: Format waktu baku <tspan font-weight="bold">ISO 8601</tspan>.</text>
+        <text x="14" y="55" class="panel-text">&bull; Memudahkan sinkronisasi cache di sisi client</text>
+        <text x="14" y="72" class="panel-text">  (aplikasi mobile Android/iOS).</text>
+        <text x="14" y="89" class="panel-text">&bull; Mendukung penelusuran log request (audit trail).</text>
+      </g>
+
+      <!-- Card 4: Kompatibilitas Figma -->
+      <g transform="translate(0, 416)">
+        <rect x="0" y="0" width="295" height="195" rx="8" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1" />
+        <text x="14" y="22" font-family="'Segoe UI', Arial, sans-serif" font-size="11px" font-weight="bold" fill="#1d4ed8">
+          🎨 Siap Edit di Figma
+        </text>
+        <text x="14" y="42" class="panel-text" fill="#1e3a8a">
+          Berkas vektor SVG ini dapat Anda tarik (<tspan font-style="italic">drag &amp; drop</tspan>) langsung ke kanvas Figma tanpa plugin.
+        </text>
+        <text x="14" y="75" class="panel-text" fill="#1e3a8a">
+          &bull; Seluruh baris kode JSON adalah layer teks asli.
+        </text>
+        <text x="14" y="94" class="panel-text" fill="#1e3a8a">
+          &bull; Nilai parameter &amp; harga dapat diubah bebas.
+        </text>
+        <text x="14" y="113" class="panel-text" fill="#1e3a8a">
+          &bull; Warna lencana status &amp; metode dapat disesuaikan.
+        </text>
+        <text x="14" y="132" class="panel-text" fill="#1e3a8a">
+          &bull; Sesuai standar Laporan Soal 12 Poin c &amp; h.
+        </text>
+        
+        <rect x="14" y="152" width="267" height="28" rx="6" fill="#1d4ed8" />
+        <text x="147" y="170" font-family="'Segoe UI', Arial, sans-serif" font-size="10px" font-weight="bold" fill="#ffffff" text-anchor="middle">
+          ✓ Vector Fidelity 100% Native
+        </text>
+      </g>
+
+    </g>
+
+  </g>
+
+</svg>
+

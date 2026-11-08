@@ -81,6 +81,17 @@
                 <div class="small text-light text-opacity-50 mt-1">PHP Native &bull; MySQLi &bull; JSON</div>
             </div>
         </div>
+        <div class="mt-3 pt-3 border-top border-white border-opacity-15 d-flex flex-wrap gap-2">
+            <a href="mockups.html" class="btn btn-sm btn-warning fw-bold px-3 text-dark">
+                <i class="bi bi-palette-fill me-1"></i> Pusat Mockup SVG Figma (Download &amp; Drag)
+            </a>
+            <a href="docs/Herbapedia_Marketplace_API.postman_collection.json" download class="btn btn-sm btn-outline-light px-3">
+                <i class="bi bi-filetype-json me-1"></i> Download Postman Collection
+            </a>
+            <a href="../WEB%20MARKET%20PLACE/index.php" target="_blank" class="btn btn-sm btn-outline-light px-3">
+                <i class="bi bi-shop me-1"></i> Buka Web Marketplace (Soal 11)
+            </a>
+        </div>
     </div>
 
     <!-- Layout 2 Kolom: Daftar Endpoint & Interactive Console -->

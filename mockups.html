@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Mockup JSON Response SVG — Herbapedia REST API</title>
+    <!-- Bootstrap 5.3 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --bg-body: #f8fafc;
+            --card-border: #e2e8f0;
+            --figma-purple: #7c3aed;
+        }
+        body {
+            background-color: var(--bg-body);
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            color: #1e293b;
+            padding-bottom: 80px;
+        }
+        .hero-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%);
+            color: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.15);
+            margin-bottom: 35px;
+        }
+        .mockup-card {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 18px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .mockup-card:hover {
+            border-color: #93c5fd;
+            box-shadow: 0 12px 28px -6px rgba(37, 99, 235, 0.14);
+            transform: translateY(-4px);
+        }
+        .preview-container {
+            background: #f1f5f9;
+            border-bottom: 1px solid var(--card-border);
+            position: relative;
+            padding: 14px;
+            min-height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+        .preview-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+            transition: transform 0.25s ease;
+            cursor: pointer;
+        }
+        .preview-container img:hover {
+            transform: scale(1.015);
+        }
+        .badge-method {
+            font-family: 'Consolas', monospace;
+            font-size: 0.78rem;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+        .method-get { background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe; }
+        .method-post { background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+        .method-error { background: #fef2f2; color: #b91c1c; border: 1px solid #fecaca; }
+        
+        .badge-status-code {
+            font-family: system-ui, sans-serif;
+            font-size: 0.76rem;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .code-200 { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+        .code-201 { background: #f0fdf4; color: #15803d; border: 1px solid #86efac; }
+        .code-404 { background: #fef2f2; color: #dc2626; border: 1px solid #fca5a5; }
+
+        .btn-figma {
+            background-color: var(--figma-purple);
+            color: white;
+            border: none;
+        }
+        .btn-figma:hover {
+            background-color: #6d28d9;
+            color: white;
+        }
+        .step-badge {
+            width: 28px;
+            height: 28px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-right: 8px;
+        }
+        .toast-container {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 1090;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm py-2" style="background: #0f172a !important;">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center gap-2 fw-bold" href="index.php">
+                <i class="bi bi-capsule text-primary fs-4"></i>
+                <span>Herbapedia <span class="badge bg-primary text-white fs-6">REST API</span></span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto align-items-lg-center gap-2">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="index.php">
+                            <i class="bi bi-terminal me-1"></i> API Explorer
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold text-info" href="mockups.html">
+                            <i class="bi bi-palette me-1"></i> Pusat Mockup SVG Figma
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="docs/Herbapedia_Marketplace_API.postman_collection.json" download>
+                            <i class="bi bi-filetype-json me-1"></i> Postman Collection
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="../WEB%20MARKET%20PLACE/index.php" target="_blank">
+                            <i class="bi bi-shop me-1"></i> Web Marketplace (Soal 11)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid px-4 py-4">
+
+        <!-- Hero Section -->
+        <div class="hero-banner">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <span class="badge bg-primary px-3 py-2 text-uppercase letter-spacing-1 mb-2 fw-semibold">
+                        <i class="bi bi-vector-pen me-1"></i> 100% Native Vector &bull; Figma Ready
+                    </span>
+                    <h1 class="display-6 fw-bold mb-2">Pusat Mockup JSON Response &amp; Endpoint</h1>
+                    <p class="text-white-50 lead fs-6 mb-3">
+                        Koleksi rancangan visual respon API resmi untuk <strong>Soal 12 — Pengembangan Web Service Marketplace (PT Herbal Sejati Indonesia)</strong>. Setiap file SVG menggunakan elemen teks native, line-numbering, dan syntax highlighting sehingga siap diunduh dan langsung di-drag ke kanvas Figma tanpa pecah/rusak.
+                    </p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <a href="#katalog-mockup" class="btn btn-primary px-4 py-2 fw-bold">
+                            <i class="bi bi-cloud-arrow-down-fill me-1"></i> Jelajahi &amp; Download Mockup
+                        </a>
+                        <a href="index.php" class="btn btn-outline-light px-4 py-2">
+                            <i class="bi bi-play-circle me-1"></i> Buka API Explorer (Uji Live)
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-4 text-center d-none d-lg-block">
+                    <div class="p-3 bg-white bg-opacity-10 rounded-4 border border-white border-opacity-20 text-start">
+                        <h6 class="fw-bold text-white mb-2"><i class="bi bi-lightbulb-fill text-warning me-1"></i> Cara Pakai di Figma:</h6>
+                        <ol class="text-white-50 small ps-3 mb-0" style="line-height: 1.6;">
+                            <li>Klik tombol <strong>Download SVG</strong> pada kartu mockup.</li>
+                            <li>Buka aplikasi atau web <strong>Figma</strong>.</li>
+                            <li><strong>Drag &amp; drop</strong> file SVG langsung ke kanvas kerja.</li>
+                            <li>Klik dua kali (double click) layer teks untuk mengedit kode/harga/keterangan bebas!</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filter / Shortcut Toolbar -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4 pb-2 border-bottom" id="katalog-mockup">
+            <div>
+                <h4 class="fw-bold mb-1"><i class="bi bi-grid-fill text-primary me-2"></i>Daftar Mockup Response API</h4>
+                <p class="text-muted small mb-0">Tersedia 4 skenario respon JSON sesuai silabus tugas dan pengujian Postman.</p>
+            </div>
+            <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-secondary active" onclick="filterCards('all', this)">Semua (4)</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="filterCards('get', this)">GET Endpoints (3)</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="filterCards('post', this)">POST Endpoint (1)</button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="filterCards('error', this)">Error Handling (1)</button>
+            </div>
+        </div>
+
+        <!-- Cards Grid -->
+        <div class="row g-4" id="cards-grid">
+
+            <!-- CARD 1: DAFTAR SELURUH PRODUK -->
+            <div class="col-xl-6 col-lg-12 mockup-item" data-category="get">
+                <div class="mockup-card">
+                    <!-- Card Top Header -->
+                    <div class="p-3 d-flex justify-content-between align-items-center border-bottom bg-light">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-method method-get">GET</span>
+                            <span class="fw-bold text-dark font-monospace small">/api/produk.php</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-status-code code-200"><i class="bi bi-check-circle-fill me-1"></i>200 OK</span>
+                            <span class="badge bg-secondary font-monospace" style="font-size: 0.72rem;">1060 &times; 840 px</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual SVG Preview -->
+                    <div class="preview-container">
+                        <img src="docs/mockup-json-response-daftar-produk.svg" 
+                             alt="Mockup JSON Daftar Seluruh Produk" 
+                             onclick="openModalPreview('docs/mockup-json-response-daftar-produk.svg', 'Mockup JSON: Daftar Seluruh Produk (GET /api/produk.php)')"
+                             title="Klik untuk memperbesar tampilan">
+                    </div>
+
+                    <!-- Card Body & Description -->
+                    <div class="p-3 flex-grow-1">
+                        <h5 class="fw-bold mb-1">1. Respon Sukses: Daftar Seluruh Produk</h5>
+                        <p class="text-muted small mb-3">
+                            Format respon standar array data katalog produk herbal fitofarmaka, filter pagination, metadata total entitas, serta relasi nested kategori dan toko.
+                        </p>
+                        <div class="bg-light p-2 rounded-3 border small mb-3">
+                            <div class="row g-2">
+                                <div class="col-6"><strong>Endpoint:</strong> <code class="text-primary">GET /api/produk.php</code></div>
+                                <div class="col-6"><strong>Status Code:</strong> <span class="text-success fw-bold">200 OK</span></div>
+                                <div class="col-6"><strong>Ukuran SVG:</strong> 21.4 KB (Vector)</div>
+                                <div class="col-6"><strong>Target Tugas:</strong> Soal 12 Poin b (1) &amp; c</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Footer -->
+                    <div class="p-3 border-top bg-light bg-opacity-50 d-flex flex-wrap gap-2">
+                        <a href="docs/mockup-json-response-daftar-produk.svg" download="mockup-json-response-daftar-produk.svg" class="btn btn-primary btn-sm flex-fill fw-bold">
+                            <i class="bi bi-download me-1"></i> Download SVG (Figma)
+                        </a>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="copySvgCode('docs/mockup-json-response-daftar-produk.svg')" title="Salin Source Code SVG ke Clipboard">
+                            <i class="bi bi-clipboard me-1"></i> Salin Kode
+                        </button>
+                        <a href="docs/mockup-json-response-daftar-produk.svg" target="_blank" class="btn btn-outline-primary btn-sm" title="Buka preview mentah di tab baru">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2: DETAIL PRODUK TUNGGAL -->
+            <div class="col-xl-6 col-lg-12 mockup-item" data-category="get">
+                <div class="mockup-card">
+                    <!-- Card Top Header -->
+                    <div class="p-3 d-flex justify-content-between align-items-center border-bottom bg-light">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-method method-get">GET</span>
+                            <span class="fw-bold text-dark font-monospace small">/api/produk.php?id=1</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-status-code code-200"><i class="bi bi-check-circle-fill me-1"></i>200 OK</span>
+                            <span class="badge bg-secondary font-monospace" style="font-size: 0.72rem;">1060 &times; 840 px</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual SVG Preview -->
+                    <div class="preview-container">
+                        <img src="docs/mockup-json-response-detail-produk.svg" 
+                             alt="Mockup JSON Detail Produk" 
+                             onclick="openModalPreview('docs/mockup-json-response-detail-produk.svg', 'Mockup JSON: Detail Produk Tunggal (GET /api/produk.php?id=1)')"
+                             title="Klik untuk memperbesar tampilan">
+                    </div>
+
+                    <!-- Card Body & Description -->
+                    <div class="p-3 flex-grow-1">
+                        <h5 class="fw-bold mb-1">2. Respon Sukses: Detail Produk Tunggal</h5>
+                        <p class="text-muted small mb-3">
+                            Format respon detail tunggal produk Madu Habbatussauda, deskripsi lengkap, nomor registrasi BPOM TR, status sertifikasi Halal MUI, dan kontak official store.
+                        </p>
+                        <div class="bg-light p-2 rounded-3 border small mb-3">
+                            <div class="row g-2">
+                                <div class="col-6"><strong>Endpoint:</strong> <code class="text-primary">GET /api/produk.php?id=1</code></div>
+                                <div class="col-6"><strong>Status Code:</strong> <span class="text-success fw-bold">200 OK</span></div>
+                                <div class="col-6"><strong>Ukuran SVG:</strong> 17.5 KB (Vector)</div>
+                                <div class="col-6"><strong>Target Tugas:</strong> Soal 12 Poin b (2) &amp; c</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Footer -->
+                    <div class="p-3 border-top bg-light bg-opacity-50 d-flex flex-wrap gap-2">
+                        <a href="docs/mockup-json-response-detail-produk.svg" download="mockup-json-response-detail-produk.svg" class="btn btn-primary btn-sm flex-fill fw-bold">
+                            <i class="bi bi-download me-1"></i> Download SVG (Figma)
+                        </a>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="copySvgCode('docs/mockup-json-response-detail-produk.svg')" title="Salin Source Code SVG ke Clipboard">
+                            <i class="bi bi-clipboard me-1"></i> Salin Kode
+                        </button>
+                        <a href="docs/mockup-json-response-detail-produk.svg" target="_blank" class="btn btn-outline-primary btn-sm" title="Buka preview mentah di tab baru">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 3: PEMBUATAN PESANAN BARU (POST) -->
+            <div class="col-xl-6 col-lg-12 mockup-item" data-category="post">
+                <div class="mockup-card">
+                    <!-- Card Top Header -->
+                    <div class="p-3 d-flex justify-content-between align-items-center border-bottom bg-light">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-method method-post">POST</span>
+                            <span class="fw-bold text-dark font-monospace small">/api/pesanan.php</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-status-code code-201"><i class="bi bi-bag-check-fill me-1"></i>201 Created</span>
+                            <span class="badge bg-secondary font-monospace" style="font-size: 0.72rem;">1060 &times; 840 px</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual SVG Preview -->
+                    <div class="preview-container">
+                        <img src="docs/mockup-json-response-pesanan-baru.svg" 
+                             alt="Mockup JSON Pesanan Baru" 
+                             onclick="openModalPreview('docs/mockup-json-response-pesanan-baru.svg', 'Mockup JSON: Pembuatan Pesanan Baru (POST /api/pesanan.php)')"
+                             title="Klik untuk memperbesar tampilan">
+                    </div>
+
+                    <!-- Card Body & Description -->
+                    <div class="p-3 flex-grow-1">
+                        <h5 class="fw-bold mb-1">3. Respon Sukses: Pembuatan Pesanan Baru</h5>
+                        <p class="text-muted small mb-3">
+                            Respon transaksi ACID pembuatan pesanan baru via JSON raw payload, kode invoice otomatis, lock baris tabel (<span class="font-monospace">FOR UPDATE</span>), dan pengurangan stok otomatis.
+                        </p>
+                        <div class="bg-light p-2 rounded-3 border small mb-3">
+                            <div class="row g-2">
+                                <div class="col-6"><strong>Endpoint:</strong> <code class="text-success">POST /api/pesanan.php</code></div>
+                                <div class="col-6"><strong>Status Code:</strong> <span class="text-success fw-bold">201 Created</span></div>
+                                <div class="col-6"><strong>Ukuran SVG:</strong> 18.9 KB (Vector)</div>
+                                <div class="col-6"><strong>Target Tugas:</strong> Soal 12 Poin b (4) &amp; d</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Footer -->
+                    <div class="p-3 border-top bg-light bg-opacity-50 d-flex flex-wrap gap-2">
+                        <a href="docs/mockup-json-response-pesanan-baru.svg" download="mockup-json-response-pesanan-baru.svg" class="btn btn-primary btn-sm flex-fill fw-bold">
+                            <i class="bi bi-download me-1"></i> Download SVG (Figma)
+                        </a>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="copySvgCode('docs/mockup-json-response-pesanan-baru.svg')" title="Salin Source Code SVG ke Clipboard">
+                            <i class="bi bi-clipboard me-1"></i> Salin Kode
+                        </button>
+                        <a href="docs/mockup-json-response-pesanan-baru.svg" target="_blank" class="btn btn-outline-primary btn-sm" title="Buka preview mentah di tab baru">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 4: ERROR HANDLING 404 NOT FOUND -->
+            <div class="col-xl-6 col-lg-12 mockup-item" data-category="error">
+                <div class="mockup-card">
+                    <!-- Card Top Header -->
+                    <div class="p-3 d-flex justify-content-between align-items-center border-bottom bg-light">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-method method-error">GET</span>
+                            <span class="fw-bold text-dark font-monospace small">/api/produk.php?id=9999</span>
+                        </div>
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="badge-status-code code-404"><i class="bi bi-exclamation-triangle-fill me-1"></i>404 Not Found</span>
+                            <span class="badge bg-secondary font-monospace" style="font-size: 0.72rem;">1060 &times; 840 px</span>
+                        </div>
+                    </div>
+
+                    <!-- Visual SVG Preview -->
+                    <div class="preview-container">
+                        <img src="docs/mockup-json-response-error-404.svg" 
+                             alt="Mockup JSON Error 404" 
+                             onclick="openModalPreview('docs/mockup-json-response-error-404.svg', 'Mockup JSON: Penanganan Galat 404 Not Found (GET /api/produk.php?id=9999)')"
+                             title="Klik untuk memperbesar tampilan">
+                    </div>
+
+                    <!-- Card Body & Description -->
+                    <div class="p-3 flex-grow-1">
+                        <h5 class="fw-bold mb-1">4. Respon Galat: Produk Tidak Ditemukan</h5>
+                        <p class="text-muted small mb-3">
+                            Visualisasi standar respon error saat ID produk tidak eksis di database MySQL. Mengembalikan kode HTTP 404 asli, pesan informatif, dan data bernilai <span class="font-monospace text-danger">null</span> yang aman.
+                        </p>
+                        <div class="bg-light p-2 rounded-3 border small mb-3">
+                            <div class="row g-2">
+                                <div class="col-6"><strong>Endpoint:</strong> <code class="text-danger">GET /api/produk.php?id=9999</code></div>
+                                <div class="col-6"><strong>Status Code:</strong> <span class="text-danger fw-bold">404 Not Found</span></div>
+                                <div class="col-6"><strong>Ukuran SVG:</strong> 15.2 KB (Vector)</div>
+                                <div class="col-6"><strong>Target Tugas:</strong> Soal 12 Poin e (Error Handling)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons Footer -->
+                    <div class="p-3 border-top bg-light bg-opacity-50 d-flex flex-wrap gap-2">
+                        <a href="docs/mockup-json-response-error-404.svg" download="mockup-json-response-error-404.svg" class="btn btn-primary btn-sm flex-fill fw-bold">
+                            <i class="bi bi-download me-1"></i> Download SVG (Figma)
+                        </a>
+                        <button class="btn btn-outline-secondary btn-sm" onclick="copySvgCode('docs/mockup-json-response-error-404.svg')" title="Salin Source Code SVG ke Clipboard">
+                            <i class="bi bi-clipboard me-1"></i> Salin Kode
+                        </button>
+                        <a href="docs/mockup-json-response-error-404.svg" target="_blank" class="btn btn-outline-primary btn-sm" title="Buka preview mentah di tab baru">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Panduan Lengkap Integrasi Figma -->
+        <div class="card mt-5 border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-dark text-white p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="p-3 rounded-3" style="background: rgba(124, 58, 237, 0.3);">
+                        <i class="bi bi-palette-fill fs-3 text-warning"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-1">Panduan Penggunaan Mockup Vektor SVG di Figma</h4>
+                        <p class="text-white-50 mb-0 small">Ikuti langkah mudah berikut untuk melampirkan rancangan visual ke laporan tugas kuliah.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-4 bg-white">
+                <div class="row g-4">
+                    <div class="col-md-3">
+                        <div class="p-3 rounded-3 border bg-light h-100">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="step-badge">1</span>
+                                <strong class="text-dark">Unduh File</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Klik tombol <strong>Download SVG</strong> pada salah satu atau seluruh kartu mockup di atas.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 rounded-3 border bg-light h-100">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="step-badge">2</span>
+                                <strong class="text-dark">Buka Figma</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Buka kanvas kerja di Figma desktop app atau browser di <code>figma.com</code>.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 rounded-3 border bg-light h-100">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="step-badge">3</span>
+                                <strong class="text-dark">Drag &amp; Drop</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Tarik file <code>.svg</code> dari folder Downloads komputer Anda langsung ke tengah kanvas Figma.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 rounded-3 border bg-light h-100">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="step-badge">4</span>
+                                <strong class="text-dark">Edit &amp; Ekspor</strong>
+                            </div>
+                            <p class="text-muted small mb-0">Ubah teks JSON bila diperlukan, lalu pilih frame dan ekspor ke format <strong>PNG @2x</strong> untuk laporan Word.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal Fullscreen Preview -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-dark text-white py-2">
+                    <h6 class="modal-title fw-bold" id="modalTitle">Preview Mockup</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-3 bg-secondary bg-opacity-10 text-center">
+                    <img id="modalImage" src="" alt="Preview Besar" class="img-fluid rounded shadow-sm" style="max-height: 80vh;">
+                </div>
+                <div class="modal-footer py-2 bg-light d-flex justify-content-between">
+                    <span class="text-muted small"><i class="bi bi-info-circle me-1"></i>Format: SVG Native 1060 &times; 840 px</span>
+                    <div class="d-flex gap-2">
+                        <a id="modalDownloadLink" href="" download class="btn btn-primary btn-sm">
+                            <i class="bi bi-download me-1"></i> Download File Ini
+                        </a>
+                        <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification for Copy -->
+    <div class="toast-container">
+        <div id="copyToast" class="toast align-items-center text-bg-success border-0 shadow-lg" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    <i class="bi bi-check2-circle me-2 fs-5"></i> <span id="toastMessage">Kode SVG berhasil disalin ke clipboard!</span>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Modal Preview Function
+        function openModalPreview(imageSrc, titleText) {
+            document.getElementById('modalImage').src = imageSrc;
+            document.getElementById('modalTitle').innerText = titleText;
+            document.getElementById('modalDownloadLink').href = imageSrc;
+            document.getElementById('modalDownloadLink').setAttribute('download', imageSrc.split('/').pop());
+            const modal = new bootstrap.Modal(document.getElementById('previewModal'));
+            modal.show();
+        }
+
+        // Copy SVG Raw Code
+        function copySvgCode(svgPath) {
+            fetch(svgPath)
+                .then(response => {
+                    if (!response.ok) throw new Error('Gagal memuat file SVG');
+                    return response.text();
+                })
+                .then(svgText => {
+                    navigator.clipboard.writeText(svgText).then(() => {
+                        showToast('Kode SVG berhasil disalin ke clipboard! Anda bisa langsung paste di Figma (Ctrl+V).');
+                    });
+                })
+                .catch(err => {
+                    showToast('Gagal menyalin: ' + err.message);
+                });
+        }
+
+        // Show Toast helper
+        function showToast(message) {
+            const toastEl = document.getElementById('copyToast');
+            document.getElementById('toastMessage').innerText = message;
+            const toast = new bootstrap.Toast(toastEl, { delay: 3500 });
+            toast.show();
+        }
+
+        // Category Filter Function
+        function filterCards(category, btnElement) {
+            // Update active button state
+            const buttons = btnElement.parentElement.querySelectorAll('button');
+            buttons.forEach(b => b.classList.remove('active', 'btn-primary'));
+            btnElement.classList.add('active');
+
+            const items = document.querySelectorAll('.mockup-item');
+            items.forEach(item => {
+                if (category === 'all') {
+                    item.style.display = 'block';
+                } else if (category === 'error' && item.getAttribute('data-category') === 'error') {
+                    item.style.display = 'block';
+                } else if (item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
